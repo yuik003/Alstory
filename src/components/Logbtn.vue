@@ -2,8 +2,8 @@
 <template>
   <div id="login">
 
-    <div v-if="user.uid" key="login">
-      <button id="logout" @click="logOut">ログアウト</button>
+    <div v-if="user" key="login">
+      <router-link to="/"><button id="logout" @click="logOut">ログアウト</button></router-link>
       <!-- <p id="userID">user：{{user.email}}</p> -->
     </div>
 
@@ -21,26 +21,26 @@ import "firebase/compat/database"
 
 export default {
   name: 'logbtn',
-  data() {
-    return {
-      user: {},
+  computed: {
+    user() {
+      return this.$store.state.user
     }
   },
 
-    created() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = user ? user : {}
-      const ref_image = firebase.database().ref('image')
-      if (user) {
-        this.tweetList = []
-        //childAddedアイテムのリストを取得するか、アイテムのリストへの追加がないかをリッスンする
-        //limitToLast後方からn件取得
-        ref_image.limitToLast(20).on('child_added', this.childAdded);
-      } else {
-        ref_image.limitToLast(20).off('child_added', this.childAdded);
-      }
-      })
-    },
+  created() {
+  firebase.auth().onAuthStateChanged(user => {
+    this.user = user ? user : {}
+    const ref_image = firebase.database().ref('image')
+    if (user) {
+      this.tweetList = []
+      //childAddedアイテムのリストを取得するか、アイテムのリストへの追加がないかをリッスンする
+      //limitToLast後方からn件取得
+      ref_image.limitToLast(20).on('child_added', this.childAdded);
+    } else {
+      ref_image.limitToLast(20).off('child_added', this.childAdded);
+    }
+    })
+  },
 
   methods: {
     logIn() {
@@ -48,6 +48,7 @@ export default {
       firebase.auth().signInWithPopup(provider)
       .then(obj => {
         console.log('Create account: ' + obj.user.email)
+        this.$store.state.user = true
       })
       .catch(error => {
         alert(error.message)
@@ -55,6 +56,7 @@ export default {
     },
     logOut() {
       firebase.auth().signOut()
+      this.$store.state.user = false
     },
   }
 }
@@ -75,11 +77,5 @@ export default {
   border: 2px solid #9E9E9E;
 }
 
-/* #userID {
-  position: absolute;
-  bottom: 5px;
-  left: 10px;
-  font-size: small;
-} */
 
 </style>

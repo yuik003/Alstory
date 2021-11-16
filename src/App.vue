@@ -12,9 +12,12 @@ import logbtn from './components/Logbtn.vue'
 
 export default {
   name: 'App',
-    components: {
+  components: {
     logbtn
   },
+  datas() {
+    return this.$store.state.dates
+  }
 }
 </script>
 

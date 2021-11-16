@@ -1,7 +1,7 @@
 <template>
   <div id="menu">
-    <div id="out_hamb" v-if="show" @click="show = false"></div>
-    <div id="hamb_menu" @click="show = !show">
+    <div id="out_hamb" v-if="show" @click="clickshow"></div>
+    <div id="hamb_menu" @click="clickshow">
       <span></span>
       <span></span>
     </div>
@@ -17,20 +17,22 @@
 </template>
 
 <script>
-// import firebase from '@/plugin/firebase'
 
 export default {
   name: 'footmenu',
-  components: {
-    // upLoad
-  },
-  data: function() {
-    return {
-      show: false
-    } 
+  computed: {
+    show() {
+      return this.$store.state.show
+    }
   },
   methods: {
-
+    clickshow() {
+      if(this.$store.state.show == false) {
+        this.$store.state.show = true
+      } else {
+        this.$store.state.show = false
+      }
+    } 
   }
 }
 </script>
@@ -48,7 +50,7 @@ export default {
 /* hambmenu */
 #hamb_menu {
   position: fixed;
-  right: 14px;
+  right: 15px;
   bottom: 17px;
   width: 55px;
   height: 50px;

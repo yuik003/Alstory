@@ -10,7 +10,10 @@
 
     <div class="sub2">なんかキャッチコピー的なもの</div>
     <logbtn />
-    <Footmenu v-if="show" />
+    <div v-if="user">
+      <div v-if="!show" id="here" class="animate__animated animate__wobble"><i class="el-icon-right"></i></div>
+      <Footmenu />
+    </div>
   </div>
 
 </template>
@@ -27,10 +30,10 @@ export default {
     logbtn,
     Footmenu
   },
-  data: function() {
-    return {
-      show: false
-    }
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
   },
 }
 </script>
@@ -63,4 +66,18 @@ export default {
 .subtitle {
   padding: 2vh 0;
 }
+
+#here {
+  color: #FF7A00;
+  font-size: xx-large;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 12px;
+  position: absolute;
+  right: 80px;
+  bottom: 20px;
+}
+
 </style>

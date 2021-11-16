@@ -1,3 +1,4 @@
+// import { userSetter } from 'core-js/fn/symbol'
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import axios from 'axios'
@@ -7,8 +8,14 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     // 後で読み込むので最初のデータの中は空に。
-    datas: null
+    datas: null,
+    show: false,
+    user: false,
   },
+
+  // mutation: {
+
+  // },
 
   // actions: {
   //   // 1.外部JSONデータを入れる処理
@@ -21,11 +28,11 @@ const store = new Vuex.Store({
   //   }
   // },
 
-  mutations: {
-    // 3.2の処理がここにかかってくる
-    // commitで定義した'setDatas'のstate.datasのdatasに入れる。
-    setDatas: (state, datas) => (state.datas = datas)
-  }
+  // mutations: {
+  //   // 3.2の処理がここにかかってくる
+  //   // commitで定義した'setDatas'のstate.datasのdatasに入れる。
+  //   setDatas: (state, datas) => (state.datas = datas)
+  // }
 })
 
 
