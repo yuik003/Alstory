@@ -1,32 +1,109 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="head">
     </div>
-    <router-view/>
+    <router-view></router-view>
+    <logbtn />
   </div>
 </template>
 
+<script>
+import logbtn from './components/Logbtn.vue'
+
+export default {
+  name: 'App',
+    components: {
+    logbtn
+  },
+}
+</script>
+
 <style>
+#contents {
+  background-color: #FFF4DE;
+  padding-top: 60px;
+  padding-bottom: 20px;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: #FFF4DE;
+}
+
+#head {
+  width: 100%;
+  height: 60px;
+  background-color: #FFE3CA;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 1px 3px 3px rgb(180, 180, 180);
+  z-index: 100;
+  }
+
+#title {
+  line-height: 60px;
+  font-size: large;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  z-index: 100;
+}
+
+.subtitle {
   text-align: center;
-  color: #2c3e50;
+  margin: 3vh 0 3vh 0;
 }
 
-#nav {
-  padding: 30px;
+#container span {
+  width: 6px;
+  height: 6px;
+  border: 1px solid #9E9E9E;
+  background-color: #C4C4C4;
+  position: absolute;
+  border-radius: 50%;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#container span:nth-child(1) {
+  top: 6px;
+  left: 8px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+#container span:nth-child(1) {
+  top: 6px;
+  left: 8px;
 }
+
+#container span:nth-child(2) {
+  top: 6px;
+  right: 8px;
+}
+
+#container span:nth-child(3) {
+  bottom: 6px;
+  left: 8px;
+}
+
+#container span:nth-child(4) {
+  bottom: 6px;
+  right: 8px;
+}
+
+#logout {
+  width: 80px;
+  height: 30px;
+  line-height: 28px;
+  font-size: small;
+  background-color: #fff3e9;
+  border: 2px solid #ff7700;
+  color: #ff7700;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+}
+
 </style>
