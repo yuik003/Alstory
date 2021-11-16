@@ -95,18 +95,4 @@ export default {
   right: 8px;
 }
 
-#logout {
-  width: 80px;
-  height: 30px;
-  line-height: 28px;
-  font-size: small;
-  background-color: #fff3e9;
-  border: 2px solid #ff7700;
-  color: #ff7700;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 100;
-}
-
 </style>

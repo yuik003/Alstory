@@ -11,7 +11,7 @@
     <div class="sub2">なんかキャッチコピー的なもの</div>
     <logbtn />
     <div v-if="user">
-      <div v-if="!show" id="here" class="animate__animated animate__wobble"><i class="el-icon-right"></i></div>
+      <div id="here" class="animate__animated animate__wobble"><i class="el-icon-right"></i></div>
       <Footmenu />
     </div>
   </div>
@@ -31,9 +31,14 @@ export default {
     Footmenu
   },
   computed: {
-    user() {
-      return this.$store.state.user
-    },
+    user: {
+      get() {
+        return this.$store.state.user
+      },
+      set() {
+        return this.$store.state.user
+      }
+    }
   },
 }
 </script>

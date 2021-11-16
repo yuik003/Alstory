@@ -4,7 +4,6 @@
 
     <div v-if="user" key="login">
       <router-link to="/"><button id="logout" @click="logOut">ログアウト</button></router-link>
-      <!-- <p id="userID">user：{{user.email}}</p> -->
     </div>
 
     <div v-else key="logout">
@@ -22,8 +21,13 @@ import "firebase/compat/database"
 export default {
   name: 'logbtn',
   computed: {
-    user() {
-      return this.$store.state.user
+    user: {
+      get() {
+        return this.$store.state.user
+      },
+      set() {
+        return this.$store.state.user
+      }
     }
   },
 
@@ -75,6 +79,20 @@ export default {
   text-align: center;
   background-color: #C4C4C4;
   border: 2px solid #9E9E9E;
+}
+
+#logout {
+  width: 80px;
+  height: 30px;
+  line-height: 28px;
+  font-size: small;
+  background-color: #fff3e9;
+  border: 2px solid #ff7700;
+  color: #ff7700;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
 }
 
 
