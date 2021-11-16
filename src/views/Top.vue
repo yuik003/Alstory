@@ -10,7 +10,7 @@
 
     <div class="sub2">なんかキャッチコピー的なもの</div>
     <logbtn />
-    <Footmenu />
+    <Footmenu v-if="show" />
   </div>
 
 </template>
@@ -27,11 +27,11 @@ export default {
     logbtn,
     Footmenu
   },
-  // data: function() {
-  //   return {
-  //     show: false
-  //   }
-  // },
+  data: function() {
+    return {
+      show: false
+    }
+  },
 }
 </script>
 
