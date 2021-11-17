@@ -4,67 +4,22 @@
     <div class="subtitle">Sub title</div>
 
     <div id="main_cont">
-      <div id="cont">
+      <div id="cont" v-for="(imgUrl, key) in imgUrls" :key="key">
         <container1 />
-        <img class="image" src="../assets/images/dog1.jpeg" alt="dog1">
+        <img class="image" :src="imgUrl" alt="ダウンロード画像">
         <p class="date">date: 20**/**/**</p>
         <p class="place">place: ＠＠公園</p>
       </div>
 
-      <div id="cont">
-        <container1 />
-        <img class="image" src="../assets/images/dog2.jpeg" alt="dog1">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
-      </div>
-
-      <div id="cont">
-        <container1 />
-        <img class="image" src="../assets/images/dog3.jpeg" alt="dog1">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
-      </div>
-
-      <div id="cont">
-        <container1 />
-        <img class="image" src="../assets/images/cat1.jpeg" alt="dog1">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
-      </div>
-
-      <div id="cont">
-        <container1 />
-        <img class="image" src="../assets/images/dog1.jpeg" alt="dog1">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
-      </div>
-      
-      <div id="cont">
-        <container1 />
-        <img class="image" src="../assets/images/dog2.jpeg" alt="dog1">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
-      </div>
-
-      <div id="cont">
-        <container1 />
-        <img class="image" src="../assets/images/dog3.jpeg" alt="dog1">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
-      </div>
-
-      <div id="cont">
-        <container1 />
-        <img class="image" src="../assets/images/cat1.jpeg" alt="dog1">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
-      </div>
     </div>
     <Footmenu />
   </div>
 </template>
 
 <script>
+import firebase from "firebase/compat/app"
+import "firebase/compat/storage"
+
 import container1 from '../components/Container1.vue'
 import Footmenu from '../components/Footmenu.vue'
 
@@ -73,6 +28,27 @@ export default {
   components: {
     container1,
     Footmenu
+  },
+  data() {
+    return {
+      imgUrls: []
+    }
+  },
+  mounted: function() {
+    let storage = firebase.storage()
+    let storageRef = storage.ref('pictures')
+    let self = this //Promiseの中で使用するthisを事前に設定しておく。
+    storageRef.listAll().then(function(result) {
+      result.items.forEach(function(ref) {
+        ref.getDownloadURL()
+        .then(res => {
+          self.imgUrls.push(res);
+          console.log(res);
+        })
+      });
+    }).catch(function(error) {
+      console.error(error);
+    })
   },
 }
 </script>

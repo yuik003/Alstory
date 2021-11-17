@@ -95,4 +95,8 @@ export default {
   right: 8px;
 }
 
+/* #login .log_btn {
+  display: none;
+} */
+
 </style>

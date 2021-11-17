@@ -12,7 +12,7 @@
         <router-link to="/album"><button><i class="el-icon-menu"></i><br>album</button></router-link>
         <button><input type="file" raccept="image/*"><i class="el-icon-upload2"></i><br>upload</button>
       </div>
-    </transition> 
+    </transition>
   </div>
 </template>
 

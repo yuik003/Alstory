@@ -11,6 +11,7 @@ import "firebase/compat/auth";
 import "firebase/compat/database"
 
 Vue.config.productionTip = false
+
 // Vue.use(Vuex)
 
 // Import the functions you need from the SDKs you need
