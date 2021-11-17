@@ -1,8 +1,10 @@
 <template>
+<!-- テストページのため不要 -->
   <div id="img">
-    <div id="img_disp" v-for="(imgUrl, key) in imgUrls" :key="key">
+    <!-- <div id="img_disp" v-for="(imgUrl, key) in imgUrls" :key="key">
       <img id="image" :src="imgUrl" alt="ダウンロード画像" />
-    </div>
+    </div> -->
+    <Upload />
   </div>
 </template>
 
@@ -10,7 +12,13 @@
 <script>
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
+
+import Upload from '../components/Upload.vue'
+
 export default {
+  components: {
+    Upload
+  },
   data() {
     return {
       imgUrls: [],
@@ -42,6 +50,5 @@ export default {
 
 #image {
   width: 30%;
-  height: ;
 }
 </style>

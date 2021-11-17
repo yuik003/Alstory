@@ -4,8 +4,8 @@
     <div class="subtitle">~~~</div>
     <div id="slide_cont">
 
-      <el-carousel id="slide" :interval="4000" type="card" direction="vertical" height="260px">
-        <el-carousel-item v-for="(imgUrl, key) in imgUrls" :key="key">
+      <el-carousel id="slide" :interval="1500" type="card" direction="vertical" height="260px">
+        <el-carousel-item v-for="(imgUrl, key) in limitUrls" :key="key">
           <img class="medium" :src="imgUrl" alt="ダウンロード画像">
         </el-carousel-item>
       </el-carousel>
@@ -31,15 +31,15 @@ export default {
     container1,
     Footmenu
   },
-  data: function() {
+  data() {
     return {
       counter: 0,
       imgUrls: [],
     }
   },
-  mounted: function() {
+  mounted() {
     let storage = firebase.storage()
-    let storageRef = storage.ref('pictures')
+    let storageRef = storage.ref('users/user1/pictures')
     let self = this //Promiseの中で使用するthisを事前に設定しておく。
     storageRef.listAll().then(function(result) {
       result.items.forEach(function(ref) {
@@ -48,11 +48,16 @@ export default {
           self.imgUrls.push(res);
           console.log(res);
         })
-      });
-    }).catch(function(error) {
-      console.error(error);
+      // }).catch(function(error) {
+      //   console.error(error);
+      })
     })
   },
+  computed: {
+    limitUrls() {
+      return this.imgUrls.slice(0,3)
+    }
+  }
 }
 </script>
 
@@ -71,12 +76,13 @@ img {
 
 /* carousel */
 .el-carousel {
-  height: 50vh;
-  margin-bottom: 3vh;
+  height: 51vh;
+  /* margin-bottom: 2vh; */
 }
 
 .el-carousel__item {
   width: 100%;
+  height: 73%;
 }
 
 .is-active {
@@ -87,7 +93,7 @@ img {
 
 #container {
   width: 62vw;
-  height: 23vh;
+  height: 22vh;
   margin-top: 5vh;
 }
 

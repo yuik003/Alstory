@@ -10,16 +10,20 @@
       <div id="foot" v-if="show">
         <router-link to="/slide"><button><i class="el-icon-files"></i><br>slide</button></router-link>
         <router-link to="/album"><button><i class="el-icon-menu"></i><br>album</button></router-link>
-        <button><input type="file" raccept="image/*"><i class="el-icon-upload2"></i><br>upload</button>
+        <upload />
       </div>
     </transition>
   </div>
 </template>
 
 <script>
+import upload from './Upload.vue'
 
 export default {
   name: 'footmenu',
+  components: {
+    upload
+  },
   computed: {
     show() {
       return this.$store.state.show
@@ -86,6 +90,7 @@ left: 0;
 #foot {
   display: flex;
   text-align: center;
+  color: rgb(88, 35, 0);
 }
 
 #foot a {
@@ -94,11 +99,11 @@ left: 0;
   line-height: 23px;
   margin: 8px 0;
   padding: 10px 0;
-  color: rgb(88, 35, 0);
+
   font-size: small;
 }
 
-#foot button:nth-child(3) {
+#uploader {
   width: 33%;
   list-style: none;
   line-height: 22px;
@@ -117,12 +122,12 @@ a {
   text-decoration: none;
 }
 
-input {
+button > input {
   opacity: 0;
   width: 100%;
   height: 100%;
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0;
 }
 

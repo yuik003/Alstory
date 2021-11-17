@@ -2,6 +2,10 @@
   <div id="contents">
     <div id="title">Album</div>
     <div class="subtitle">Sub title</div>
+    <!-- <reload @click="oddeven" /> -->
+    <div id="reloader">
+      <button class="reload" @click="oddeven()"><i class="el-icon-menu"></i></button>
+    </div>
 
     <div id="main_cont">
       <div id="cont" v-for="(imgUrl, key) in imgUrls" :key="key">
@@ -9,6 +13,11 @@
         <img class="image" :src="imgUrl" alt="ダウンロード画像">
         <p class="date">date: 20**/**/**</p>
         <p class="place">place: ＠＠公園</p>
+      </div>
+
+<!-- 奇数枚の時に空白のコンテナを表示 -->
+      <div id="cont" v-if="odd">
+        <container1 />
       </div>
 
     </div>
@@ -22,21 +31,30 @@ import "firebase/compat/storage"
 
 import container1 from '../components/Container1.vue'
 import Footmenu from '../components/Footmenu.vue'
+// import reload from '../components/reload.vue'
 
 export default {
   name: 'Album',
   components: {
     container1,
-    Footmenu
+    Footmenu,
+    // reload
   },
   data() {
     return {
-      imgUrls: []
+      imgUrls: [],
+      params: {
+      }
     }
   },
-  mounted: function() {
+  computed: {
+    odd() {
+      return this.$store.state.odd
+    },
+  },
+  mounted() {
     let storage = firebase.storage()
-    let storageRef = storage.ref('pictures')
+    let storageRef = storage.ref('users/user1/pictures')
     let self = this //Promiseの中で使用するthisを事前に設定しておく。
     storageRef.listAll().then(function(result) {
       result.items.forEach(function(ref) {
@@ -50,6 +68,15 @@ export default {
       console.error(error);
     })
   },
+  methods: {
+    oddeven() {
+      if(this.imgUrls.length % 2 != 0) {
+        this.$store.state.odd = true
+      } else {
+        this.$store.state.odd = false
+      }
+    }
+  }
 }
 </script>
 
@@ -130,6 +157,18 @@ export default {
 
 #userID {
   display: none;
+}
+
+input {
+  height: 100px;
+}
+
+#reloader {
+  display: flex;
+  margin-top: 60px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 </style>
