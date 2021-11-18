@@ -9,8 +9,10 @@ const store = new Vuex.Store({
   state: {
     datas: null,
     show: false,
-    user: false,
-    odd: false,
+    user: true,
+    // odd: false,
+    files: [],
+    count: 0
   },
 })
 

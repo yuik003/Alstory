@@ -22,10 +22,12 @@
 
       </div>
 
+      <button id="save" @click="dataSave()">save</button>
+
 <!-- 奇数枚の時に空白のコンテナを表示 -->
-      <div id="cont" v-if="odd">
+      <!-- <div id="cont" v-if="odd">
         <container1 />
-      </div>
+      </div> -->
 
     </div>
     <Footmenu />
@@ -33,6 +35,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import firebase from "firebase/compat/app"
 import "firebase/compat/storage"
 
@@ -50,16 +54,31 @@ export default {
   data() {
     return {
       imgUrls: [],
-      params: {
-      },
     }
   },
   computed: {
-    odd() {
-      return this.$store.state.odd
+    // odd() {
+    //   return this.$store.state.odd
+    // },
+    files: {
+      get() {
+        return this.$store.state.files
+      },
+      set() {
+        return this.$store.state.files
+      }
     },
+    count: {
+      get() {
+        return this.$store.state.count
+      },
+      set() {
+        return this.$store.state.count
+      }
+    }
   },
   mounted() {
+    console.log(this.$store.state.files)
     let storage = firebase.storage()
     let storageRef = storage.ref('users/user1/pictures')
     let self = this //Promiseの中で使用するthisを事前に設定しておく。
@@ -76,20 +95,45 @@ export default {
     })
   },
   methods: {
-    oddeven() {
-      if(this.imgUrls.length % 2 != 0) {
-        this.$store.state.odd = true
-      } else {
-        this.$store.state.odd = false
-      }
-    },
+    // oddeven() {
+    //   if(this.imgUrls.length % 2 != 0) {
+    //     this.$store.state.odd = true
+    //   } else {
+    //     this.$store.state.odd = false
+    //   }
+    // },
     deleteImage() {
       let storage = firebase.storage()
-      let desertRef = storage.ref('users/user1/pictures/');
+      let desertRef = storage.ref('users/user1/pictures/' + this.$store.state.files.name);
       desertRef.delete().then(function() {
       }).catch(function(error) {
         console.error(error)
       });
+    },
+    dataSave() {
+      this.$store.state.count += 1
+      axios.post(
+        'https://firestore.googleapis.com/v1/projects/alstory-44284/databases/(default)/documents/image-meta',
+        {
+          fields: {
+            imageName: {
+              stringValue: this.$store.state.files.name
+            },
+            imageDate:{
+              stringValue: this.$store.state.files.lastMobifiedDate
+            },
+            count: {
+              doubleValue: this.$store.state.count
+            }
+          }
+        }
+      )
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
     }
   }
 }
@@ -176,6 +220,12 @@ input {
 
 #delete i {
   font-size: small;
+}
+
+#save {
+  position: absolute;
+  top: 100px;
+  left: 0;
 }
 
 @media screen and (min-width: 414px) {

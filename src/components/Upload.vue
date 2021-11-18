@@ -10,26 +10,32 @@ import "firebase/compat/storage"
 
 export default {
   name: 'upload',
-  data() {
-    return {
-    }
+  computed: {
+    files: {
+      get() {
+        return this.$store.state.files
+      },
+      set() {
+        return this.$store.state.files
+      }
+    },
   },
   mounted() {
-    // console.log(this.$refs.preview)
+    console.log(this.$store.state.files)
 
   },
   methods: {
     uploadFile(p) {
-      console.log(this.$refs.preview.files[0].name);
+      console.log(this.$refs.preview.files[0]);
       const file = p.target.files[0]
       const storageRef = firebase.storage().ref('users/user1/pictures/' + file.name)
-      // 画像をStorageにアップロード
 
-      storageRef.put(file).then(() => {
+            storageRef.put(file).then(() => {
         // アップロードした画像のURLを取得
         firebase.storage().ref('users/user1/pictures/' + file.name).getDownloadURL().then((url) => {
-            // アップロードした画像のURLと画像名をDBに保存
+          // アップロードした画像のURLと画像名をDBに保存
             this.$store.dispatch('user/uploadImage', { id: this.id, name: file.name, url: url })
+            this.$store.state.files.push(file)
         }).catch((error) => {
             console.log(error)
         })
@@ -40,5 +46,9 @@ export default {
 </script>
 
 <style scoped>
-
+#save {
+  position: absolute;
+  top: 50px;
+  left: 0;
+}
 </style>
