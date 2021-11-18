@@ -34,10 +34,11 @@ export default {
             console.log(error)
         })
       })
-    }
+    },
   }
 }
 </script>
 
 <style scoped>
+
 </style>

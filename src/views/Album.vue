@@ -3,16 +3,23 @@
     <div id="title">Album</div>
     <div class="subtitle">Sub title</div>
     <!-- <reload @click="oddeven" /> -->
-    <div id="reloader">
-      <button class="reload" @click="oddeven()"><i class="el-icon-menu"></i></button>
-    </div>
+    <!-- <div id="reloader">
+      <button class="reload" @click="oddeven()"><i class="el-icon-refresh"></i></button>
+    </div> -->
 
     <div id="main_cont">
       <div id="cont" v-for="(imgUrl, key) in imgUrls" :key="key">
         <container1 />
-        <img class="image" :src="imgUrl" alt="ダウンロード画像">
+        <img class="image" :src="imgUrl" alt="image">
         <p class="date">date: 20**/**/**</p>
         <p class="place">place: ＠＠公園</p>
+      
+        <div id="delete">
+          <button @click="deleteImage()">
+            <i class="el-icon-close"></i>
+          </button>
+        </div>
+
       </div>
 
 <!-- 奇数枚の時に空白のコンテナを表示 -->
@@ -44,7 +51,7 @@ export default {
     return {
       imgUrls: [],
       params: {
-      }
+      },
     }
   },
   computed: {
@@ -75,29 +82,31 @@ export default {
       } else {
         this.$store.state.odd = false
       }
+    },
+    deleteImage() {
+      let storage = firebase.storage()
+      let desertRef = storage.ref('users/user1/pictures/');
+      desertRef.delete().then(function() {
+      }).catch(function(error) {
+        console.error(error)
+      });
     }
   }
 }
 </script>
 
 <style scoped>
-  /* レスポンシブの場合変更必要 */
-
 #main_cont {
   width: 100%;
-  height: 100%;
-  position: relative;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: flex-start; */
-  justify-content: space-around;
 }
 
 #cont {
   width: 182px;
   height: 100%;
   position: relative;
-  text-align: center;
 }
 
 #cont:nth-child(odd) {
@@ -108,8 +117,7 @@ export default {
   margin-right: 5px;
 }
 
-/* レスポンシブの場合変更必要ここまで
-奇数偶数で空白の値が異なってしまうのでガタガタになる */
+
 
 #container {
   width: 160px;
@@ -121,16 +129,10 @@ export default {
   position: absolute;
   top: 0;
   left: 26px;
-  margin-top: 15px;
+  margin-top: 20px;
   width: 130px;
   height: 56%;
   object-fit: cover;
-}
-
-.image:nth-of-type(even) {
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 
 .date {
@@ -138,13 +140,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 132px 0 0 30px;
-}
-
-.date:nth-of-type(even) {
-  position: absolute;
-  top: 0;
-  left: 0px;
+  margin: 136px 0 0 30px;
 }
 
 .place {
@@ -152,7 +148,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 150px 0 0 30px;
+  margin: 153px 0 0 30px;
 }
 
 #userID {
@@ -167,8 +163,40 @@ input {
   display: flex;
   margin-top: 60px;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
 }
+
+#delete {
+  position: absolute;
+  font-size: small;
+  top: 2px;
+  left: 30px;
+}
+
+#delete i {
+  font-size: small;
+}
+
+@media screen and (min-width: 414px) {
+  #cont:nth-child(odd) {
+    margin-left: 15px;
+    margin-right: 20px;
+  }
+
+  #cont:nth-child(even) {
+    margin-right: 15px;
+  }
+}
+
+/* @media screen and (min-width: 600px) {
+  #cont:nth-child(odd) {
+    margin-left: 15px;
+  }
+
+  #cont:nth-child(even) {
+    margin-right: 15px;
+  }
+} */
 
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <div id="head">
-    </div>
+    <div id="head"></div>
     <router-view></router-view>
     <logbtn />
   </div>
@@ -26,12 +25,12 @@ export default {
   background-color: #FFF4DE;
   padding-top: 60px;
   padding-bottom: 20px;
+  /* position: relative; */
 }
 
 #app {
   width: 100vw;
   height: 100vh;
-  position: relative;
   background-color: #FFF4DE;
 }
 
@@ -95,8 +94,10 @@ export default {
   right: 8px;
 }
 
-/* #login .log_btn {
-  display: none;
-} */
+#log_in {
+  width: 100%;
+  position: fixed;
+  bottom: 26vh;
+  }
 
 </style>

@@ -6,7 +6,7 @@
       <router-link to="/"><button id="logout" @click="logOut">ログアウト</button></router-link>
     </div>
 
-    <div v-else key="logout">
+    <div v-else key="logout" id="log_in">
       <button @click="logIn" class="log_btn">ログイン</button>
     </div>
 
@@ -36,9 +36,6 @@ export default {
     this.user = user ? user : {}
     const ref_image = firebase.database().ref('image')
     if (user) {
-      this.tweetList = []
-      //childAddedアイテムのリストを取得するか、アイテムのリストへの追加がないかをリッスンする
-      //limitToLast後方からn件取得
       ref_image.limitToLast(20).on('child_added', this.childAdded);
     } else {
       ref_image.limitToLast(20).off('child_added', this.childAdded);
@@ -62,6 +59,14 @@ export default {
       firebase.auth().signOut()
       this.$store.state.user = false
     },
+
+    childAdded(snap) {
+      const images = snap.val()
+      this.user.push({
+        key: snap.key,
+        image: images.image
+      })
+    },
   }
 }
 </script>
@@ -69,12 +74,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #login {
+  width: 100vw;
+  height: auto;
   text-align: center;
 }
 
 .log_btn {
   width: 100px;
-  margin: 10vh auto 0;
+  /* margin: 10vh auto 0; */
   padding: 0.2em;
   text-align: center;
   background-color: #C4C4C4;

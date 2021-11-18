@@ -9,7 +9,7 @@
     </div>
 
     <div class="sub2">なんかキャッチコピー的なもの</div>
-    <logbtn />
+    <!-- <logbtn /> -->
     <div v-if="user">
       <div id="here" class="animate__animated animate__wobble"><i class="el-icon-right"></i></div>
       <Footmenu />
@@ -20,14 +20,14 @@
 
 <script>
 import container1 from '../components/Container1.vue'
-import logbtn from '../components/Logbtn.vue'
+// import logbtn from '../components/Logbtn.vue'
 import Footmenu from '../components/Footmenu.vue'
 
 export default {
   name: 'Top',
   components: {
     container1,
-    logbtn,
+    // logbtn,
     Footmenu
   },
   computed: {
