@@ -7,29 +7,43 @@
 <script>
 import firebase from "firebase/compat/app"
 import "firebase/compat/storage"
+import "firebase/compat/firestore"
 
 export default {
   name: 'upload',
-  data() {
-    return {
+  // data() {
+  //   return {
+  //     count: 0
+  //   }
+  // },
+  computed: {
+    count: {
+      get() {
+        return this.$store.state.count
+      },
+      set() {
+        return this.$store.state.count
+      }
     }
-  },
-  mounted() {
-    // console.log(this.$refs.preview)
-
   },
   methods: {
     uploadFile(p) {
-      console.log(this.$refs.preview.files[0].name);
+      this.$store.state.count++;
+      // console.log(this.$refs.preview.files[0].name);
       const file = p.target.files[0]
+      console.log(file)
       const storageRef = firebase.storage().ref('users/user1/pictures/' + file.name)
-      // 画像をStorageにアップロード
+
+      const db = firebase.firestore();
+      db.collection("image-meta").add({
+        name: file.name,
+        // date: file,
+        count: this.$store.state.count
+      })
 
       storageRef.put(file).then(() => {
-        // アップロードした画像のURLを取得
         firebase.storage().ref('users/user1/pictures/' + file.name).getDownloadURL().then((url) => {
-            // アップロードした画像のURLと画像名をDBに保存
-            this.$store.dispatch('user/uploadImage', { id: this.id, name: file.name, url: url })
+            this.$store.dispatch('image-meta', { id: this.id, name: file.name, url: url })
         }).catch((error) => {
             console.log(error)
         })

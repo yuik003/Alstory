@@ -15,16 +15,11 @@
         <p class="place">place: ＠＠公園</p>
       
         <div id="delete">
-          <button @click="deleteImage()">
+          <button @click="deleteImage(imgUrl)">
             <i class="el-icon-close"></i>
           </button>
         </div>
 
-      </div>
-
-<!-- 奇数枚の時に空白のコンテナを表示 -->
-      <div id="cont" v-if="odd">
-        <container1 />
       </div>
 
     </div>
@@ -38,54 +33,51 @@ import "firebase/compat/storage"
 
 import container1 from '../components/Container1.vue'
 import Footmenu from '../components/Footmenu.vue'
-// import reload from '../components/reload.vue'
 
 export default {
   name: 'Album',
   components: {
     container1,
     Footmenu,
-    // reload
   },
   data() {
     return {
       imgUrls: [],
-      params: {
-      },
     }
   },
   computed: {
-    odd() {
-      return this.$store.state.odd
-    },
+    count: {
+      get() {
+        return this.$store.state.count
+      },
+      set() {
+        return this.$store.state.count
+      }
+    }
   },
   mounted() {
     let storage = firebase.storage()
-    let storageRef = storage.ref('users/user1/pictures')
+    let storageRef = storage.ref('users/user1/pictures/')
     let self = this //Promiseの中で使用するthisを事前に設定しておく。
+    console.log(self.imgUrls);
     storageRef.listAll().then(function(result) {
       result.items.forEach(function(ref) {
         ref.getDownloadURL()
         .then(res => {
           self.imgUrls.push(res);
-          console.log(res);
         })
+        self.$store.state.count++;
       });
+      console.log(self.$store.state.count)
     }).catch(function(error) {
       console.error(error);
     })
   },
   methods: {
-    oddeven() {
-      if(this.imgUrls.length % 2 != 0) {
-        this.$store.state.odd = true
-      } else {
-        this.$store.state.odd = false
-      }
-    },
-    deleteImage() {
+    deleteImage(p) {
+      console.log(p)
       let storage = firebase.storage()
-      let desertRef = storage.ref('users/user1/pictures/');
+      let desertRef = storage.ref().child().remove();
       desertRef.delete().then(function() {
       }).catch(function(error) {
         console.error(error)
@@ -93,6 +85,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>
