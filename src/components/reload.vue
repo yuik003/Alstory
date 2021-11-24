@@ -7,12 +7,6 @@
 <script>
 export default {
   name: 'reload',
-  data() {
-    return {
-      params: {
-      }
-    }
-  },
   methods: {
     reset() {
       // reloadする処理

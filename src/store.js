@@ -10,6 +10,7 @@ const store = new Vuex.Store({
     datas: null,
     show: false,
     user: true,
+    // odd: false,
     count: 0
   },
 })

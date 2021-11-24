@@ -11,25 +11,23 @@ import "firebase/compat/firestore"
 
 export default {
   name: 'upload',
-  // data() {
-  //   return {
-  //     count: 0
-  //   }
-  // },
   computed: {
-    count: {
+    files: {
       get() {
-        return this.$store.state.count
+        return this.$store.state.files
       },
       set() {
-        return this.$store.state.count
+        return this.$store.state.files
       }
-    }
+    },
+  },
+  mounted() {
+    console.log(this.$store.state.files)
+
   },
   methods: {
     uploadFile(p) {
-      this.$store.state.count++;
-      // console.log(this.$refs.preview.files[0].name);
+      console.log(this.$refs.preview.files[0]);
       const file = p.target.files[0]
       console.log(file)
       const storageRef = firebase.storage().ref('users/user1/pictures/' + file.name)
@@ -54,5 +52,9 @@ export default {
 </script>
 
 <style scoped>
-
+#save {
+  position: absolute;
+  top: 50px;
+  left: 0;
+}
 </style>
