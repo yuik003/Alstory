@@ -21,29 +21,28 @@ export default {
       }
     },
   },
-  mounted() {
-    console.log(this.$store.state.files)
-
-  },
   methods: {
     uploadFile(p) {
       this.$store.state.count++
       // console.log(this.$refs.preview.files[0]);
       const file = p.target.files[0]
-      // console.log(file)
+      // console.log(file.name)
       const storageRef = firebase.storage().ref('users/user1/pictures/' + file.name)
 
       const db = firebase.firestore();
-      db.collection("image-meta").add({
+      let docId = db.collection('image-meta').doc().id;
+
+      db.collection('image-meta').doc(docId).set({
+        docid: docId,
         name: file.name,
-        // date: file,
-        count: this.$store.state.count
+        id: this.$store.state.count
       })
 
       storageRef.put(file).then(() => {
         firebase.storage().ref('users/user1/pictures/' + file.name).getDownloadURL().then((url) => {
-            this.$store.dispatch('image-meta', { id: this.id, name: file.name, url: url })
-        }).catch((error) => {
+            this.$store.dispatch('', { id: file.uid, name: file.name, url: url })
+            // console.log(file.uid)
+        }).catch((error) => { 
             console.log(error)
         })
       })

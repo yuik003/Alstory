@@ -8,9 +8,9 @@
     </div> -->
 
     <div id="main_cont">
-      <div id="cont" v-for="(imgUrl, id) in imgUrls" :key="id">
+      <div id="cont" v-for="(imgUrl, key) in imgUrls" :key="key">
         <container1 />
-        <img class="image" :src="imgUrl" alt="image">
+        <img class="image" :src="imgUrl" alt="image" @click="inpStore(e)">
         <p class="date">date: 20**/**/**</p>
         <p class="place">place: ＠＠公園</p>
       
@@ -54,16 +54,18 @@ export default {
       set() {
         return this.$store.state.count
       }
-    }
+    },
   },
   mounted() {
-    // console.log(this.$store.state.files)
     let storage = firebase.storage()
-    let storageRef = storage.ref('users/user1/pictures/')
-    let self = this //Promiseの中で使用するthisを事前に設定しておく。
-    // console.log(self.imgUrls);
+    // let db = firebase.firestore();
+    let storageRef = storage.ref('users/user1/pictures/');
+    let self = this;
+
+    // let fields = db.collection('image-meta').get()
+    // console.log(fields)
+
     storageRef.listAll().then(function(result) {
-      // console.log(result);
       result.items.forEach(function(ref) {
         ref.getDownloadURL()
         .then(res => {
@@ -71,7 +73,6 @@ export default {
         })
         self.$store.state.count++;
       });
-      // console.log(self.$store.state.count)
     }).catch(function(error) {
       console.error(error);
     })
@@ -79,21 +80,40 @@ export default {
   methods: {
     deleteImage(p) {
       let storage = firebase.storage()
+      let db = firebase.firestore();
       let storageRef = storage.ref('users/user1/pictures/')
       let self = this
+
       storageRef.listAll().then(function(result) {
+        // console.log(result)
         for(let i = 0; i < result.items.length; i++) {
           if(p.match(result.items[i].name)) {
           self.resname = result.items[i].name
           }
         }
-      let desertRef = storage.ref('users/user1/pictures/' + self.resname);
-      desertRef.delete().then(function() {
-      }).catch(function(error) {
-        console.error(error)
-      });
-    })
+        let desertRef = storage.ref('users/user1/pictures/' + self.resname);
+        db.collection('image-meta').doc('ii').delete()
+        desertRef.delete().then(function() {
+        }).catch(function(error) {
+          console.error(error)
+        });
+      })
+    },
+
+    inpStore(e) {
+      console.log(e)
     }
+
+    // deleteStore() {
+      // let querySnapshot = db.collection('image-meta').get()
+      // console.log(querySnapshot.docs.map(postDoc => postDoc.id))
+      // querySnapshot.forEach((postDoc) => {
+      //   console.log(postDoc.id, ' => ' , JSON.stringify(postDoc.data()))
+      //   db.app.delete()
+      // }).catch(function(error) {
+      //   console.log(error)
+      // })
+    // }
   }
 }
 

@@ -11,7 +11,7 @@ const store = new Vuex.Store({
     show: false,
     user: true,
     // odd: false,
-    count: 0
+    count: 0,
   },
 })
 
