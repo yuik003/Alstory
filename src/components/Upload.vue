@@ -32,13 +32,12 @@ export default {
       const db = firebase.firestore();
       let docId = db.collection('image-meta').doc().id;
 
-      console.log(file)
-
+      // console.log(file)
 
       db.collection('image-meta').doc(docId).set({
         docid: docId,
         name: file.name,
-        date: file.lastModifiedDate,
+        lastday: file.lastModifiedDate,
         id: this.$store.state.count
       })
 

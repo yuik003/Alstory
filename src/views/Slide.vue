@@ -1,20 +1,21 @@
 <template>
   <div id="contents">
-    <div id="title">Slide mode</div>
+    <div id="title">Random Slide</div>
     <div class="subtitle">~~~</div>
     <div id="slide_cont">
 
-      <el-carousel id="slide" :interval="1500" type="card" direction="vertical" height="260px">
+      <el-carousel id="slide" :interval="2000" type="card" direction="vertical" height="260px">
         <el-carousel-item v-for="(imgUrl, key) in limitUrls" :key="key">
           <img class="medium" :src="imgUrl" alt="ダウンロード画像">
         </el-carousel-item>
       </el-carousel>
 
-      <div>
-        <!-- <container1 /> -->
+      <!-- <div>
+        <container1 />
+      </div> -->
 
-      </div>
     <Footmenu />
+    
     </div>
   </div>
 </template>
@@ -72,6 +73,11 @@ export default {
 #contents {
   margin: 0 5vw;
 }
+
+#slide_cont {
+  margin-top: 10vh;
+}
+
 
 img {
   width: 100%;

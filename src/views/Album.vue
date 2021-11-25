@@ -60,12 +60,12 @@ export default {
         return this.$store.state.count
       }
     },
-    check: {
+    inp: {
       get() {
-        return this.$store.state.check
+        return this.$store.state.inp
       },
       set() {
-        return this.$store.state.check
+        return this.$store.state.inp
       }
     },
   },
@@ -93,15 +93,14 @@ export default {
                 self.resname = result.items[i].name
                 // console.log(self.resname)
 
-
                 db.collection('image-meta').where('name', '==', self.resname).get()
                 .then(snapshot => {
                   snapshot.forEach(doc => {
-                    console.log(`${doc.id}: ${doc.data().name}: ${doc.data().date.seconds}`)
-                    // let tds = doc.data().date.format("YYYY/MM/DD/");
+                    let datetime = new Date((doc.data().lastday.seconds) * 1000)
+                    console.log(`${doc.id}: ${doc.data().name}: ${datetime.toLocaleDateString()}`)
 
                     self.inpName.push(doc.data().name)
-                    self.inpDate.push(doc.data().id)
+                    self.inpDate.push(datetime.toLocaleDateString())
                   })
                 })
               }
@@ -121,6 +120,7 @@ export default {
       let db = firebase.firestore();
       let self = this
 
+
       storageRef.listAll().then(function(result) {
         // console.log(result)
         for(let i = 0; i < result.items.length; i++) {
@@ -128,6 +128,7 @@ export default {
             self.resname = result.items[i].name
           }
         }
+
         let desertRef = storage.ref('users/user1/pictures/' + self.resname);
         desertRef.delete().then(function() {
           }).catch(function(error) {
@@ -146,7 +147,6 @@ export default {
             })
           })
         })
-
       })
     },
   }
@@ -207,7 +207,15 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 153px 0 0 30px;
+  margin: 154px 0 0 30px;
+}
+
+.input {
+  font-size: small;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 136px 30px 0 30px;
 }
 
 #userID {
