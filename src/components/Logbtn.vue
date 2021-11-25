@@ -32,14 +32,14 @@ export default {
   },
 
   created() {
-  firebase.auth().onAuthStateChanged(user => {
-    this.user = user ? user : {}
-    const ref_image = firebase.database().ref('image')
-    if (user) {
-      ref_image.limitToLast(20).on('child_added', this.childAdded);
-    } else {
-      ref_image.limitToLast(20).off('child_added', this.childAdded);
-    }
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user ? user : {}
+      const ref_image = firebase.database().ref('image')
+      if (user) {
+        ref_image.limitToLast(20).on('child_added', this.childAdded);
+      } else {
+        ref_image.limitToLast(20).off('child_added', this.childAdded);
+      }
     })
   },
 

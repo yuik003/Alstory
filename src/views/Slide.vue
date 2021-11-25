@@ -11,7 +11,8 @@
       </el-carousel>
 
       <div>
-        <container1 />
+        <!-- <container1 /> -->
+
       </div>
     <Footmenu />
     </div>
@@ -22,13 +23,13 @@
 import firebase from "firebase/compat/app"
 import "firebase/compat/storage"
 
-import container1 from '../components/Container1.vue'
+// import container1 from '../components/Container1.vue'
 import Footmenu from '../components/Footmenu.vue'
 
 export default {
   name: 'slide',
   components: {
-    container1,
+    // container1,
     Footmenu
   },
   data() {
@@ -46,13 +47,18 @@ export default {
         ref.getDownloadURL()
         .then(res => {
           self.imgUrls.push(res);
-          console.log(res);
+          // console.log(res);
         })
       // }).catch(function(error) {
       //   console.error(error);
       })
     })
   },
+
+  created() {
+
+  },
+
   computed: {
     limitUrls() {
       return this.imgUrls.slice(0,3)

@@ -16,6 +16,21 @@ export default {
   },
   datas() {
     return this.$store.state.dates
+  },
+  computed: {
+    user: {
+      get() {
+        return this.$store.state.user
+      },
+      set() {
+        return this.$store.state.user
+      }
+    }
+  },
+  created() {
+    // if(this.$store.state.user == true) {
+      // this.$store.state.user = false
+    // }
   }
 }
 </script>

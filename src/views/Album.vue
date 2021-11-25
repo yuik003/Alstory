@@ -8,11 +8,11 @@
     </div> -->
 
     <div id="main_cont">
-      <div id="cont" v-for="(imgUrl, key) in imgUrls" :key="key">
+      <div id="cont" v-for="(imgUrl, index) in imgUrls" :key="index">
         <container1 />
-        <img class="image" :src="imgUrl" alt="image" @click="inpStore(e)">
-        <p class="date">date: 20**/**/**</p>
-        <p class="place">place: ＠＠公園</p>
+        <img class="image" :src="imgUrl" alt="image">
+        <p class="date">date: {{ inpDate[index] }}</p>
+        <p class="place">name: {{ inpName[index] }}</p>
       
         <div id="delete">
           <button @click="deleteImage(imgUrl)">
@@ -22,6 +22,7 @@
 
       </div>
     </div>
+    <!-- <del-check v-if="check" /> -->
     <Footmenu />
   </div>
 </template>
@@ -33,17 +34,21 @@ import "firebase/compat/firestore"
 
 import container1 from '../components/Container1.vue'
 import Footmenu from '../components/Footmenu.vue'
+// import DelCheck from '../components/DelCheck.vue'
 
 export default {
   name: 'Album',
   components: {
     container1,
     Footmenu,
+    // DelCheck
   },
   data() {
     return {
       imgUrls: [],
       resname: '',
+      inpName: [],
+      inpDate: []
     }
   },
   computed: {
@@ -53,6 +58,14 @@ export default {
       },
       set() {
         return this.$store.state.count
+      }
+    },
+    check: {
+      get() {
+        return this.$store.state.check
+      },
+      set() {
+        return this.$store.state.check
       }
     },
   },
@@ -70,9 +83,32 @@ export default {
         ref.getDownloadURL()
         .then(res => {
           self.imgUrls.push(res);
-        })
-        self.$store.state.count++;
-      });
+          self.$store.state.count++;
+
+          let db = firebase.firestore();
+          storageRef.listAll().then(function(result) {
+            // console.log(result)
+            for(let i = 0; i < result.items.length; i++) {
+              if(res.match(result.items[i].name)) {
+                self.resname = result.items[i].name
+                // console.log(self.resname)
+
+
+                db.collection('image-meta').where('name', '==', self.resname).get()
+                .then(snapshot => {
+                  snapshot.forEach(doc => {
+                    console.log(`${doc.id}: ${doc.data().name}: ${doc.data().date.seconds}`)
+                    // let tds = doc.data().date.format("YYYY/MM/DD/");
+
+                    self.inpName.push(doc.data().name)
+                    self.inpDate.push(doc.data().id)
+                  })
+                })
+              }
+            }
+          })
+        });
+      })
     }).catch(function(error) {
       console.error(error);
     })
@@ -80,40 +116,39 @@ export default {
   methods: {
     deleteImage(p) {
       let storage = firebase.storage()
-      let db = firebase.firestore();
       let storageRef = storage.ref('users/user1/pictures/')
+
+      let db = firebase.firestore();
       let self = this
 
       storageRef.listAll().then(function(result) {
         // console.log(result)
         for(let i = 0; i < result.items.length; i++) {
           if(p.match(result.items[i].name)) {
-          self.resname = result.items[i].name
+            self.resname = result.items[i].name
           }
         }
         let desertRef = storage.ref('users/user1/pictures/' + self.resname);
-        db.collection('image-meta').doc('ii').delete()
         desertRef.delete().then(function() {
-        }).catch(function(error) {
-          console.error(error)
+          }).catch(function(error) {
+            console.error(error)
         });
+        
+
+        db.collection('image-meta').where('name', '==', self.resname).get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            // console.log(`${doc.id}: ${doc.data().name}`)
+            db.collection('image-meta').doc(doc.id).delete().then(() => {
+              console.log('kiemasita');
+            }).catch((error) => {
+              console.error('error', error);
+            })
+          })
+        })
+
       })
     },
-
-    inpStore(e) {
-      console.log(e)
-    }
-
-    // deleteStore() {
-      // let querySnapshot = db.collection('image-meta').get()
-      // console.log(querySnapshot.docs.map(postDoc => postDoc.id))
-      // querySnapshot.forEach((postDoc) => {
-      //   console.log(postDoc.id, ' => ' , JSON.stringify(postDoc.data()))
-      //   db.app.delete()
-      // }).catch(function(error) {
-      //   console.log(error)
-      // })
-    // }
   }
 }
 

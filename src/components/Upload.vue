@@ -32,16 +32,20 @@ export default {
       const db = firebase.firestore();
       let docId = db.collection('image-meta').doc().id;
 
+      console.log(file)
+
+
       db.collection('image-meta').doc(docId).set({
         docid: docId,
         name: file.name,
+        date: file.lastModifiedDate,
         id: this.$store.state.count
       })
 
+
       storageRef.put(file).then(() => {
         firebase.storage().ref('users/user1/pictures/' + file.name).getDownloadURL().then((url) => {
-            this.$store.dispatch('', { id: file.uid, name: file.name, url: url })
-            // console.log(file.uid)
+            this.$store.dispatch('', { name: file.name, url: url })
         }).catch((error) => { 
             console.log(error)
         })
