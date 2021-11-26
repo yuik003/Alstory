@@ -3,7 +3,7 @@
     <div id="title">TOP</div>
     <div class="subtitle">AlStory</div>
 
-    <div class="container">
+    <div class="containerT">
       <container1 />
       <img src="../assets/images/top1.jpeg" alt="top_picture">
     </div>
@@ -50,13 +50,13 @@ export default {
   height: 100vh;
 }
 
-.container {
+.containerT {
   width: 250px;
   margin: 0 auto;
   position: relative;
 }
 
-.container > img {
+.containerT > img {
   width: auto;
   height: 140px;
   margin: 20px;

@@ -2,10 +2,6 @@
   <div id="contents">
     <div id="title">Album</div>
     <div class="subtitle">Sub title</div>
-    <!-- <reload @click="oddeven" /> -->
-    <!-- <div id="reloader">
-      <button class="reload" @click="oddeven()"><i class="el-icon-refresh"></i></button>
-    </div> -->
 
     <div id="main_cont">
       <div id="cont" v-for="(imgUrl, index) in imgUrls" :key="index">
