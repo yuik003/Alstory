@@ -97,7 +97,7 @@ export default {
                 .then(snapshot => {
                   snapshot.forEach(doc => {
                     let datetime = new Date((doc.data().lastday.seconds) * 1000)
-                    console.log(`${doc.id}: ${doc.data().name}: ${datetime.toLocaleDateString()}`)
+                    // console.log(`${doc.id}: ${doc.data().name}: ${datetime.toLocaleDateString()}`)
 
                     self.inpName.push(doc.data().name)
                     self.inpDate.push(datetime.toLocaleDateString())
@@ -148,6 +148,9 @@ export default {
           })
         })
       })
+      setTimeout( function() {
+        this.$router.go({path: this.$router.currentRoute.path, force: true})
+      }.bind(this),500)
     },
   }
 }

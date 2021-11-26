@@ -11,7 +11,9 @@
     <div class="sub2">なんかキャッチコピー的なもの</div>
     <!-- <logbtn /> -->
     <div v-if="user">
-      <div id="here" class="animate__animated animate__wobble"><i class="el-icon-right"></i></div>
+      <div id="here_anime">
+        <div id="here" class="animate__animated animate__bounce"><i class="el-icon-bottom"></i></div>
+      </div>
       <Footmenu />
     </div>
   </div>
@@ -80,9 +82,30 @@ export default {
   text-align: center;
   line-height: 40px;
   border-radius: 12px;
-  position: absolute;
-  right: 80px;
-  bottom: 20px;
+  position: fixed;
+  right: 22px;
+  bottom: 80px;
+}
+
+#here_anime {
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  right: 22px;
+  bottom: 80px;
+  z-index: 10;
+  background-color: #FFF4DE;
+  animation: fadeout 1s ease 5s 1 forwards;
+  }
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 </style>

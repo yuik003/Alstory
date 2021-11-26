@@ -24,11 +24,6 @@ const routes = [
     name: 'album',
     component: () => import('../views/Album.vue')
   },
-  {
-    path: '/downl',
-    name: 'downl',
-    component: () => import('../views/download.vue')
-  }
 ]
 
 const router = new VueRouter({

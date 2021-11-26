@@ -35,7 +35,7 @@ export default {
       // console.log(file)
 
       db.collection('image-meta').doc(docId).set({
-        docid: docId,
+        // docid: docId,
         name: file.name,
         lastday: file.lastModifiedDate,
         id: this.$store.state.count
@@ -43,8 +43,11 @@ export default {
 
 
       storageRef.put(file).then(() => {
-        firebase.storage().ref('users/user1/pictures/' + file.name).getDownloadURL().then((url) => {
-            this.$store.dispatch('', { name: file.name, url: url })
+        firebase.storage().ref('users/user1/pictures/' + file.name).getDownloadURL().then(() => {
+            // this.$store.dispatch('', { name: file.name, url: url })
+          setTimeout( function() {
+            this.$router.go({path: this.$router.currentRoute.path, force: true})
+          }.bind(this),1000)
         }).catch((error) => { 
             console.log(error)
         })
