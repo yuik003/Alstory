@@ -30,7 +30,7 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user ? user : {}
-        })
+    })
   }
 }
 </script>
