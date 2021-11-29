@@ -17,9 +17,6 @@ export default {
   components: {
     logbtn
   },
-  datas() {
-    return this.$store.state.dates
-  },
   computed: {
     user: {
       get() {

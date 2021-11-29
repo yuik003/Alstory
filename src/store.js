@@ -7,7 +7,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    datas: null,
     show: false,
     user: null,
     // odd: false,
