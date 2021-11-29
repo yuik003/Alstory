@@ -7,6 +7,9 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app"
+import "firebase/compat/firestore"
+
 import logbtn from './components/Logbtn.vue'
 
 export default {
@@ -29,8 +32,13 @@ export default {
   },
   created() {
     // if(this.$store.state.user == true) {
-      // this.$store.state.user = false
+    //   this.$store.state.user = false
     // }
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user ? user : {}
+      console.log(user)
+  // }
+        })
   }
 }
 </script>

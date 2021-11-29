@@ -41,6 +41,9 @@ export default {
         return this.$store.state.user
       }
     }
+  },
+  mounted() {
+    
   }
 }
 </script>

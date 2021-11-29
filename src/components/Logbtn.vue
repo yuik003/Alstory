@@ -32,14 +32,12 @@ export default {
   },
 
   created() {
+    JSON.parse(localStorage.getItem(this.$store.state.user))
     firebase.auth().onAuthStateChanged(user => {
       this.user = user ? user : {}
-      const ref_image = firebase.database().ref('image')
-      if (user) {
-        ref_image.limitToLast(20).on('child_added', this.childAdded);
-      } else {
-        ref_image.limitToLast(20).off('child_added', this.childAdded);
-      }
+      // if(user) {
+
+      // }
     })
   },
 
@@ -50,6 +48,7 @@ export default {
       .then(obj => {
         console.log('Create account: ' + obj.user.email)
         this.$store.state.user = true
+        localStorage.setItem(this.$store.state.user, true)
       })
       .catch(error => {
         alert(error.message)
