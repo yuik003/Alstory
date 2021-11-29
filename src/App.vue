@@ -113,8 +113,7 @@ export default {
 
 #log_in {
   width: 100%;
-  position: fixed;
-  bottom: 20vh;
+  margin-top: 5vh;
   }
 
 </style>

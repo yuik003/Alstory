@@ -46,10 +46,6 @@ export default {
 </script>
 
 <style scoped>
-#contents {
-  height: 100vh;
-}
-
 .containerT {
   width: 250px;
   margin: 0 auto;
