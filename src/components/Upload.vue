@@ -24,15 +24,11 @@ export default {
   methods: {
     uploadFile(p) {
       this.$store.state.count++
-      // console.log(this.$refs.preview.files[0]);
       const file = p.target.files[0]
-      // console.log(file.name)
       const storageRef = firebase.storage().ref('users/user1/pictures/' + file.name)
 
       const db = firebase.firestore();
       let docId = db.collection('image-meta').doc().id;
-
-      // console.log(file)
 
       db.collection('image-meta').doc(docId).set({
         // docid: docId,
@@ -44,7 +40,6 @@ export default {
 
       storageRef.put(file).then(() => {
         firebase.storage().ref('users/user1/pictures/' + file.name).getDownloadURL().then(() => {
-            // this.$store.dispatch('', { name: file.name, url: url })
           setTimeout( function() {
             this.$router.go({path: this.$router.currentRoute.path, force: true})
           }.bind(this),1000)

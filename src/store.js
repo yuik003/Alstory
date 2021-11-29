@@ -9,7 +9,7 @@ const store = new Vuex.Store({
   state: {
     datas: null,
     show: false,
-    user: true,
+    user: null,
     // odd: false,
     count: 0,
     check: true,

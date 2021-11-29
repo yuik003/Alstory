@@ -1,5 +1,5 @@
 <template>
-<!-- このログイン画面不要になった -->
+<!-- このログイン画面不要に -->
   <div id="contents">
     <div id="title">Login</div>
     <div class="subtitle">Google 認証</div>

@@ -31,14 +31,8 @@ export default {
     }
   },
 
-  created() {
-    JSON.parse(localStorage.getItem(this.$store.state.user))
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = user ? user : {}
-      // if(user) {
-
-      // }
-    })
+  mounted() {
+    this.$store.state.user = JSON.parse(localStorage.getItem('setUser'))
   },
 
   methods: {
@@ -48,7 +42,7 @@ export default {
       .then(obj => {
         console.log('Create account: ' + obj.user.email)
         this.$store.state.user = true
-        localStorage.setItem(this.$store.state.user, true)
+        localStorage.setItem('setUser', true)
       })
       .catch(error => {
         alert(error.message)
@@ -57,6 +51,7 @@ export default {
     logOut() {
       firebase.auth().signOut()
       this.$store.state.user = false
+      localStorage.setItem('setUser', false)
     },
 
     childAdded(snap) {
@@ -70,7 +65,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 #login {
   width: 100vw;
@@ -80,7 +75,6 @@ export default {
 
 .log_btn {
   width: 100px;
-  /* margin: 10vh auto 0; */
   padding: 0.2em;
   text-align: center;
   background-color: #C4C4C4;

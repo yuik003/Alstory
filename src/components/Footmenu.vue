@@ -8,8 +8,8 @@
     
     <transition name="fade">
       <div id="foot" v-if="show">
-        <router-link to="/slide"><button><i class="el-icon-files"></i><br>slide</button></router-link>
         <router-link to="/album"><button><i class="el-icon-menu"></i><br>album</button></router-link>
+        <router-link to="/slide"><button><i class="el-icon-files"></i><br>slide</button></router-link>
         <upload />
       </div>
     </transition>
@@ -75,19 +75,16 @@ export default {
   transform: translateY(-9px) rotate(90deg);
 }
 
-/* footermenu animation */
 
 #foot {
-width: 100vw;
-height: 80px;
-background-color: rgb(255,255,255);
-z-index: 100;
-position: fixed;
-bottom: 0;
-left: 0;
-}
+  width: 100vw;
+  height: 80px;
+  background-color: rgb(255,255,255);
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
-#foot {
   display: flex;
   text-align: center;
   color: rgb(88, 35, 0);

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.5e1f7332c947b82d13b3575352d543b6.js"
+  "precache-manifest.225c3d763a586806ba70d2bc180085db.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "alstory"});

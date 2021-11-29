@@ -1,7 +1,7 @@
 <template>
   <div id="contents">
-    <div id="title">Random Slide</div>
-    <div class="subtitle">~~~</div>
+    <div id="title">Slide Show</div>
+    <div class="subtitle">Randomly display 5 photos</div>
     <div id="slide_cont">
 
       <el-carousel id="slide" :interval="2000" type="card" direction="vertical" height="260px">
@@ -42,7 +42,7 @@ export default {
   mounted() {
     let storage = firebase.storage()
     let storageRef = storage.ref('users/user1/pictures')
-    let self = this //Promiseの中で使用するthisを事前に設定しておく。
+    let self = this
     storageRef.listAll().then(function(result) {
       result.items.forEach(function(ref) {
         ref.getDownloadURL()
@@ -50,19 +50,12 @@ export default {
           self.imgUrls.push(res);
           // console.log(res);
         })
-      // }).catch(function(error) {
-      //   console.error(error);
       })
     })
   },
-
-  created() {
-
-  },
-
   computed: {
     limitUrls() {
-      return this.imgUrls.slice(0,3)
+      return this.imgUrls.slice(0,5)
     }
   }
 }
@@ -88,29 +81,24 @@ img {
 
 /* carousel */
 .el-carousel {
-  height: 51vh;
-  /* margin-bottom: 2vh; */
+  height: 61vh;
 }
 
 .el-carousel__item {
   width: 100%;
-  height: 73%;
+  height: 100%;
 }
 
 .is-active {
-  height: 30vh;
-  padding: 5px;
-  background-color: #525252;
+  height: 38vh;
+  padding: 15px;
+  background-color: #686868;
 }
 
 #container {
   width: 62vw;
   height: 22vh;
   margin-top: 5vh;
-}
-
-#login .log_btn {
-  display: none;
 }
 
 </style>

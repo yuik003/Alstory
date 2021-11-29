@@ -1,15 +1,14 @@
 <template>
   <div id="contents">
     <div id="title">TOP</div>
-    <div class="subtitle">AlStory</div>
+    <div class="subtitle">MemoGraph</div>
 
     <div class="containerT">
       <container1 />
       <img src="../assets/images/top1.jpeg" alt="top_picture">
     </div>
 
-    <div class="sub2">なんかキャッチコピー的なもの</div>
-    <!-- <logbtn /> -->
+    <div class="sub2">〜 Memories Photograph 〜</div>
     <div v-if="user">
       <div id="here_anime">
         <div id="here" class="animate__animated animate__bounce"><i class="el-icon-bottom"></i></div>
@@ -22,14 +21,12 @@
 
 <script>
 import container1 from '../components/Container1.vue'
-// import logbtn from '../components/Logbtn.vue'
 import Footmenu from '../components/Footmenu.vue'
 
 export default {
   name: 'Top',
   components: {
     container1,
-    // logbtn,
     Footmenu
   },
   computed: {
@@ -43,7 +40,7 @@ export default {
     }
   },
   mounted() {
-    
+
   }
 }
 </script>
@@ -71,6 +68,7 @@ export default {
 .sub2 {
   margin-top: 8vh;
   text-align: center;
+  color: #924607;
 }
 
 .subtitle {

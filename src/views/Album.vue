@@ -1,7 +1,7 @@
 <template>
   <div id="contents">
-    <div id="title">Album</div>
-    <div class="subtitle">Sub title</div>
+    <div id="title">My Album</div>
+    <!-- <div class="subtitle">~~~</div> -->
 
     <div id="main_cont">
       <div id="cont" v-for="(imgUrl, index) in imgUrls" :key="index">
@@ -18,7 +18,6 @@
 
       </div>
     </div>
-    <!-- <del-check v-if="check" /> -->
     <Footmenu />
   </div>
 </template>
@@ -30,14 +29,12 @@ import "firebase/compat/firestore"
 
 import container1 from '../components/Container1.vue'
 import Footmenu from '../components/Footmenu.vue'
-// import DelCheck from '../components/DelCheck.vue'
 
 export default {
   name: 'Album',
   components: {
     container1,
     Footmenu,
-    // DelCheck
   },
   data() {
     return {
@@ -67,12 +64,9 @@ export default {
   },
   mounted() {
     let storage = firebase.storage()
-    // let db = firebase.firestore();
     let storageRef = storage.ref('users/user1/pictures/');
     let self = this;
 
-    // let fields = db.collection('image-meta').get()
-    // console.log(fields)
 
     storageRef.listAll().then(function(result) {
       result.items.forEach(function(ref) {
@@ -135,7 +129,6 @@ export default {
         db.collection('image-meta').where('name', '==', self.resname).get()
         .then(snapshot => {
           snapshot.forEach(doc => {
-            // console.log(`${doc.id}: ${doc.data().name}`)
             db.collection('image-meta').doc(doc.id).delete().then(() => {
               console.log('kiemasita');
             }).catch((error) => {
@@ -159,98 +152,148 @@ export default {
   height: auto;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 #cont {
-  width: 182px;
+  width: 170px;
   height: 100%;
   position: relative;
 }
 
-#cont:nth-child(odd) {
-  margin-left: 5px;
-}
-
-#cont:nth-child(even) {
-  margin-right: 5px;
-}
-
-
-
 #container {
-  width: 160px;
-  height: 180px;
+  width: 150px;
+  height: 200px;
   margin-bottom: 20px;
 }
 
 .image {
   position: absolute;
   top: 0;
-  left: 26px;
+  left: 20px;
   margin-top: 20px;
   width: 130px;
-  height: 56%;
+  height: 51%;
   object-fit: cover;
 }
 
 .date {
-  font-size: small;
+  font-size: 0.7em;
   position: absolute;
   top: 0;
   left: 0;
-  margin: 136px 0 0 30px;
+  margin: 136px 0 0 25px;
 }
 
 .place {
-  font-size: small;
+  width: 75%;
+  font-size: 0.7em;
   position: absolute;
   top: 0;
   left: 0;
-  margin: 154px 0 0 30px;
-}
-
-.input {
-  font-size: small;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 136px 30px 0 30px;
-}
-
-#userID {
-  display: none;
-}
-
-input {
-  height: 100px;
-}
-
-#reloader {
-  display: flex;
-  margin-top: 60px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  margin: 154px 0 0 25px;
+  overflow-wrap: break-word;
 }
 
 #delete {
   position: absolute;
-  font-size: small;
-  top: 2px;
-  left: 30px;
+  top: 0px;
+  left: 26px;
 }
 
 #delete i {
-  font-size: small;
+  font-size: 0.9em;
 }
 
-#save {
-  position: absolute;
-  top: 100px;
-  left: 0;
+@media screen and (max-width: 279px) {
+  #cont {
+    margin: 0 auto;
+  }
 }
 
-@media screen and (min-width: 414px) {
+@media screen and (min-width: 280px) and (max-width: 339px) {
+  #cont {
+    width: 139px;
+    margin: 0 0px;
+}
+
+  #container {
+    width: 128px;
+}
+
+  .image {
+    left: 15px;
+    width: 105px;
+  }
+
+    .date {
+    margin-left: 15px;
+  }
+
+  .place {
+    margin-left: 15px;
+  }
+
+  #delete {
+    left: 22px;
+  }
+}
+
+@media screen and (min-width: 360px) and (max-width: 374px) {
+  #cont:nth-child(odd) {
+    margin-left: 7px;
+    margin-right: 6px;
+  }
+
+  #cont:nth-child(even) {
+    margin-right: 7px;
+  }
+}
+
+@media screen and (min-width: 375px) and (max-width: 410px) {
+  #cont {
+    width: 175px;
+    margin: 0 6px
+}
+
+  #container {
+    width: 160px;
+}
+
+  .image {
+    left: 23px;
+    width: 135px;
+  }
+}
+
+@media screen and (min-width: 411px) {
+  #cont {
+    width: 182px;
+}
+
+  #container {
+    width: 170px;
+}
+
+  .image {
+    left: 23px;
+    width: 135px;
+  }
+}
+
+@media screen and (min-width: 411px) and (max-width: 413px) {
+  #cont:nth-child(odd) {
+    margin-left: 13px;
+    margin-right: 20px;
+  }
+
+  #cont:nth-child(even) {
+    margin-right: 13px;
+  }
+}
+
+@media screen and (min-width: 414px) and (max-width: 539px) {
+
   #cont:nth-child(odd) {
     margin-left: 15px;
     margin-right: 20px;
@@ -261,14 +304,56 @@ input {
   }
 }
 
-/* @media screen and (min-width: 600px) {
-  #cont:nth-child(odd) {
-    margin-left: 15px;
+@media screen and (min-width: 540px) {
+  #cont {
+    width: 163px;
+    margin: 0 8px;
+}
+
+  #container {
+    width: 98%;
+}
+
+  .image {
+    left: 12px;
+    width: 136px;
   }
 
-  #cont:nth-child(even) {
-    margin-right: 15px;
+  .date {
+    margin-left: 17px;
   }
-} */
+
+  .place {
+    margin-left: 17px;
+  }
+
+  #delete {
+    top: 0px;
+    left: 20px;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  #cont {
+    width: 170px;
+    margin: 0 11px;
+}
+
+  .image {
+    left: 13px;
+    width: 145px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #cont {
+    width: 182px;
+}
+
+  .image {
+    width: 155px;
+  }
+}
 
 </style>

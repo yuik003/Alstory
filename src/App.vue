@@ -31,13 +31,8 @@ export default {
     }
   },
   created() {
-    // if(this.$store.state.user == true) {
-    //   this.$store.state.user = false
-    // }
     firebase.auth().onAuthStateChanged(user => {
       this.user = user ? user : {}
-      console.log(user)
-  // }
         })
   }
 }
@@ -48,7 +43,6 @@ export default {
   background-color: #FFF4DE;
   padding-top: 60px;
   padding-bottom: 20px;
-  /* position: relative; */
 }
 
 #app {
