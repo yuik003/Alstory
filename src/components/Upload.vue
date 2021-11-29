@@ -25,13 +25,14 @@ export default {
     uploadFile(p) {
       this.$store.state.count++
       const file = p.target.files[0]
+
       const storageRef = firebase.storage().ref('users/user1/pictures/' + file.name)
 
       const db = firebase.firestore();
       let docId = db.collection('image-meta').doc().id;
 
       db.collection('image-meta').doc(docId).set({
-        // docid: docId,
+        docid: docId,
         name: file.name,
         lastday: file.lastModifiedDate,
         id: this.$store.state.count

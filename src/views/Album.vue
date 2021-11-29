@@ -110,9 +110,7 @@ export default {
       let db = firebase.firestore();
       let self = this
 
-
       storageRef.listAll().then(function(result) {
-        // console.log(result)
         for(let i = 0; i < result.items.length; i++) {
           if(p.match(result.items[i].name)) {
             self.resname = result.items[i].name
