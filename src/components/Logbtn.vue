@@ -79,6 +79,7 @@ export default {
   text-align: center;
   background-color: #C4C4C4;
   border: 2px solid #9E9E9E;
+  border-radius: 10px;
 }
 
 #logout {
@@ -89,6 +90,7 @@ export default {
   background-color: #fff3e9;
   border: 2px solid #ff7700;
   color: #ff7700;
+  border-radius: 10px;
   position: fixed;
   top: 15px;
   right: 15px;

@@ -25,6 +25,7 @@ export default {
     uploadFile(p) {
       this.$store.state.count++
       const file = p.target.files[0]
+      console.log(file)
 
       const storageRef = firebase.storage().ref('users/user1/pictures/' + file.name)
 
