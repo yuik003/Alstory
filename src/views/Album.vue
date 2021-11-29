@@ -211,7 +211,7 @@ export default {
   }
 }
 
-@media screen and (min-width: 280px) and (max-width: 339px) {
+@media screen and (min-width: 280px) and (max-width: 319px) {
   #cont {
     width: 139px;
     margin: 0 0px;
@@ -236,6 +236,34 @@ export default {
 
   #delete {
     left: 22px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 359px) {
+  #cont {
+    width: 153px;
+    margin: 0 3px;
+}
+
+  #container {
+    width: 143px;
+}
+
+  .image {
+    left: 15px;
+    width: 123px;
+  }
+
+    .date {
+    margin-left: 17px;
+  }
+
+  .place {
+    margin-left: 17px;
+  }
+
+  #delete {
+    left: 23px;
   }
 }
 
