@@ -1,7 +1,6 @@
 <template>
   <div id="contents">
     <div id="title">My Album</div>
-    <!-- <div class="subtitle">~~~</div> -->
 
     <div id="main_cont">
       <div id="cont" v-for="(imgUrl, index) in imgUrls" :key="index">
@@ -77,17 +76,14 @@ export default {
 
           let db = firebase.firestore();
           storageRef.listAll().then(function(result) {
-            // console.log(result)
             for(let i = 0; i < result.items.length; i++) {
               if(res.match(result.items[i].name)) {
                 self.resname = result.items[i].name
-                // console.log(self.resname)
 
                 db.collection('image-meta').where('name', '==', self.resname).get()
                 .then(snapshot => {
                   snapshot.forEach(doc => {
                     let datetime = new Date((doc.data().lastday.seconds) * 1000)
-                    // console.log(`${doc.id}: ${doc.data().name}: ${datetime.toLocaleDateString()}`)
 
                     self.inpName.push(doc.data().name)
                     self.inpDate.push(datetime.toLocaleDateString())
